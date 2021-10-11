@@ -1,0 +1,22 @@
+name: tfenv install
+description: tfenv install
+inputs:
+  github_token:
+    description: 'GitHub Access Token'
+    required: true
+  working_directory:
+    description: working directory
+    required: false
+    default: ""
+  github_comment_opts:
+    description: github-comment options
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - run: github-comment exec ${{ inputs.github_comment_opts }} -- tfenv install
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
